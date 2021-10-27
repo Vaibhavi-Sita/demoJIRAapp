@@ -1,0 +1,12 @@
+<div
+    class="lane lane-1"
+    cdkDropList
+    id="todo"
+    #todo="cdkDropList"
+    [cdkDropListData]="backlogList"
+    [cdkDropListConnectedTo]="['inprogress', 'delete']"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div class="heading backlog">Backlog</div>
+    <div *ngFor="let item of backlogList" class="task" cdkDrag>{{ item }}</div>
+  </div>

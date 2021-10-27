@@ -1,0 +1,107 @@
+<h2>JIRA Board</h2>
+
+<div class="row mt-1" style="height:80px;">
+  <div class="col-3 d-none col-md-3 d-md-block"></div>
+  <div
+    class="
+      col-12 col-md-6
+      bg-success
+      d-flex
+      justify-content-center
+      align-items-center
+      text-light
+      h3
+    "
+  >
+    <input
+      [(ngModel)]="newTask"
+      type="text"
+      value=""
+      class="col-7 form-control"
+      style="width:300px;"
+    />
+
+    <div class="col-1"></div>
+
+    <button (click)="addToList()" class="button button1">
+      ADD TASK
+    </button>
+  </div>
+
+  <div class="col-3 d-none col-md-3 d-md-block"></div>
+</div>
+<div class="board">
+  
+  <div
+    class="lane lane-1"
+    cdkDropList
+    id="todo"
+    #todo="cdkDropList"
+    [cdkDropListData]="backlogList"
+    [cdkDropListConnectedTo]="['inprogress', 'delete']"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div class="heading backlog">Backlog</div>
+    <div *ngFor="let item of backlogList" class="task" cdkDrag>{{ item }}</div>
+</div>
+
+ <!-- <app-backlog [connectedTo]="['inprogress', 'delete']"></app-backlog> -->
+
+  <!--
+  <div
+    class="lane lane-2"
+    cdkDropList
+    id="inprogress"
+    #inProgress="cdkDropList"
+    [cdkDropListData]="inProgressList"
+    [cdkDropListConnectedTo]="['todo', 'done', 'delete']"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div class="heading inprogress">In Progress</div>
+    <div *ngFor="let item of inProgressList" class="task" cdkDrag>
+      {{ item }}
+    </div>
+  </div>
+-->
+  <app-inprogress [connectedTo]="['done', 'delete']"></app-inprogress>
+
+  <!--
+  <div
+    class="lane lane-2"
+    cdkDropList
+    id="done"
+    #done="cdkDropList"
+    [cdkDropListData]="doneList"
+    [cdkDropListConnectedTo]="['inprogress', 'delete']"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div class="heading done">Done</div>
+    <div *ngFor="let item of doneList" class="task" cdkDrag>{{ item }}</div>
+  </div>
+-->
+  <app-done [connectedTo]="['inprogress', 'delete']"></app-done>
+
+  <div
+    class="lane lane-3"
+    cdkDropList
+    id="delete"
+    #delete="cdkDropList"
+    [cdkDropListData]="deleteArray"
+    [cdkDropListConnectedTo]="[]"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div class="heading delete">Delete</div>
+  </div>
+
+  <!--  <div class="lane lane-2" 
+    cdkDropList 
+    #done="cdkDropList"
+    [cdkDropListData]="doneList"
+    [cdkDropListConnectedTo]="[todo]"
+    (cdkDropListDropped)="drop($event)"
+    >
+    <div class="heading done">Done</div>
+    <div *ngFor="let item of doneList" class="task" cdkDrag>{{item}}</div>
+  </div>
+ -->
+</div>
